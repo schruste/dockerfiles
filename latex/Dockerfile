@@ -18,6 +18,8 @@ ARG MAKE=make
 ARG PANDOC=pandoc
 ARG PYGMENTS=python3-pygments
 ARG FIG2DEV=fig2dev
+ARG SCIPY=python3-scipy
+ARG MATPLOTLIB=python3-matplotlib
 
 RUN apt-get update && apt-get install -y \
   texlive-full \
@@ -30,7 +32,9 @@ RUN apt-get update && apt-get install -y \
   # XFig utilities
   "$FIG2DEV" \
   # syntax highlighting package
-  "$PYGMENTS" && \
+  "$PYGMENTS" \
+  "$SCIPY" \
+  "$MATPLOTLIB" && \
   # Removing documentation packages *after* installing them is kind of hacky,
   # but it only adds some overhead while building the image.
   apt-get --purge remove -y .\*-doc$ && \
