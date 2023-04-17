@@ -5,11 +5,10 @@ ARG USER_HOME=/home/latex
 ARG USER_ID=1000
 ARG USER_GECOS=LaTeX
 
-RUN adduser \
-  --home "$USER_HOME" \
+RUN useradd \
+  --home-dir "$USER_HOME" \
+  -m \
   --uid $USER_ID \
-  --gecos "$USER_GECOS" \
-  --disabled-password \
   "$USER_NAME"
 
 ARG WGET=wget
@@ -40,3 +39,7 @@ RUN apt-get update && apt-get install -y \
   apt-get --purge remove -y .\*-doc$ && \
   # Remove more unnecessary stuff
   apt-get clean -y
+
+RUN apt-get install -y pdftk
+RUN apt-get install -y tree
+
